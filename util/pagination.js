@@ -1,78 +1,88 @@
+/*
+* @Author: TomChen
+* @Date:   2018-08-09 10:22:53
+* @Last Modified by:   TomChen
+* @Last Modified time: 2018-09-17 11:08:02
+*/
 
 
 /*
-page:请求页码
-model:数据模型
-query:查询条件
-projection:投影
-sort:排序,
-populates:关联数据模型(数组)
+options = {
+	page: //需要显示的页码
+	model: //操作的数据模型
+	query: //查询条件
+	projection: //投影，
+	sort: //排序,
+	populate:[]
+}
 */
 
-async function pagination(options){
+let pagination = (options)=>{
 
+	return new Promise((resolve,reject)=>{
+		//需要显示的页码
+		
+		let page = 1;
 
-	let {page,model,query,projection,sort,populates} = options;
+		if(!isNaN(parseInt(options.page))){
+			page = parseInt(options.page);
+		}
 
-	/*
-	约定每页显示3条 limit(3)
+		if(page <= 0){
+			page = 1;
+		}
 
-	每页要跳过3条数据 skip(3)
+		//每页显示条数
+		let limit = 10;
 
-	第page页 跳过 (page - 1) * skip
+		/*
+		分页:
+		假设: 每页显示 2 条  
+		limit(2)
+		skip()//跳过多少条
 
-	 */
-	
-	//第一次进来没有page
-	if(isNaN(page)){
-		page = 1
-	}
+		第 1 页 跳过 0 条
+		第 2 页 跳过 2 条
+		第 3 也 跳过 4 条
 
-	page = parseInt(page);
+		综上发现规律:
+		(page - 1) * limit
+		*/
 
-	const limit = 3;
-	//跳页不能为负
-	if(page == 0){
-		page = 1
-	}
-	//计算总页数
-	const count = await model.countDocuments(query);
+		options.model.countDocuments(options.query)
+		.then((count)=>{
+			let pages = Math.ceil(count / limit);
+			if(page > pages){
+				page = pages;
+			}
+			if(pages == 0){
+				page = 1;
+			}
 
-	const pages = Math.ceil(count / limit);
+			let skip = (page - 1)*limit;
 
+			let query = options.model.find(options.query,options.projection);
+			
+			if(options.populate){
+				for(let i = 0;i<options.populate.length;i++){
+					query = query.populate(options.populate[i])
+				}
+			}
 
-	if(page > pages){
-		page = pages
-	}
-
-	if(pages == 0){
-		page = 1
-	}
-
-	let list = [];
-	for(let i=1;i<=pages;i++){
-		list.push(i)
-	}
-	let skip = (page - 1) * limit ;
-
-	let findData = model.find(query,projection);
-
-	if(populates){
-		populates.forEach(populate=>{
-			findData = findData.populate(populate)
+			query
+			.sort(options.sort)
+			.skip(skip)
+			.limit(limit)
+			.then((docs)=>{
+				resolve({
+					list:docs,
+					current:page*1,
+					pageSize:limit,
+					total:count
+				})		
+			})
 		})
-	}
-
-	const docs = await findData.sort(sort).skip(skip).limit(limit);
-
-	return {
-		docs,
-		page,
-		pages,
-		list
-	}
-
-
+	});
 }
 
-module.exports = pagination
+module.exports = pagination;
