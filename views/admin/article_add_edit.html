@@ -1,0 +1,68 @@
+{% extends './layout.html' %}
+
+{% block header %}
+{% if article %}
+  编辑博文
+{% else %}
+  新增博文
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+{% if article %} 
+  <form class="form-horizontal" action="/article/edit" method="post">
+{% else %}
+  <form class="form-horizontal" action="/article/add" method="post">
+{% endif %}
+    <div class="form-group">
+      <label for="name" class="col-sm-2 control-label">分类名称</label>
+      <div class="col-sm-6">
+        <select class="form-control" name="category">
+          {% for category in categories %}
+          {% if article.category.toString() == category._id.toString() %}
+          <option selected value="{{category._id.toString()}}">{{category.name}}</option>
+          {% else %}
+         <option value="{{category._id.toString()}}">{{category.name}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="title" class="col-sm-2 control-label">标题</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="title" id="title" value="{{article.title}}" placeholder="请输入标题">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="intro" class="col-sm-2 control-label">简介</label>
+      <div class="col-sm-6">
+        <textarea name="intro" class="form-control" id="intro" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="content" class="col-sm-2 control-label">内容</label>
+      <div class="col-sm-6">
+        <textarea name="content" class="form-control" id="content" rows="8"></textarea>
+      </div>
+    </div>    
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+        <input type="hidden" name="id" value="{{ article._id.toString() }}">
+        <button type="submit" class="btn btn-primary btn-admin">提交</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="/lib/ckeditor5/ckeditor.js"></script>
+<script type="text/javascript" src="/lib/ckeditor5/translations/zh-cn.js"></script>
+<script type="text/javascript" src="/js/article.js"></script>
+{% endblock %}

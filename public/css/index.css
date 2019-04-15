@@ -1,0 +1,7 @@
+	.banner .carousel.slide{
+		margin-bottom: 20px;
+	}
+	.banner .carousel-inner img{
+		width: 100%;	
+		height: 420px;
+	}

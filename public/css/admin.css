@@ -1,0 +1,23 @@
+
+.user-info{
+	float: right;
+	margin-top: 8px;
+	margin-right: 80px;
+}
+
+.content{
+	min-height: 200px;
+}
+
+.btn-add{
+	margin-bottom: 20px;
+}
+.list-panel{
+	min-height: 200px;
+}
+.btn-admin{
+	width: 100%;	
+}
+.ck-content{
+	min-height: 300px;
+}

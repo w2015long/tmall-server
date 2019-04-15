@@ -1,0 +1,142 @@
+/*顶部导航开始*/
+	body{
+		background: #f0f0f0;
+	}
+	.link{
+		text-decoration: none!important;
+	}		
+	.link:hover{
+		color: #ff6700!important;
+	}
+	.text-ellipsis{
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	#blog a:hover{
+		color: #ff6700;
+	}
+	.blog{
+		opacity: 0.9;
+	}
+	.blog .collapse .nav li{
+		font-size: 16px;
+		margin-left: 12px;
+	}
+	.blog .navbar-nav>li.active>a{
+		color: #ff6700;
+		background: transparent;
+	}
+/*顶部导航结束*/
+/*banner开始*/
+	.banner{
+		margin-top: 70px;
+	}
+
+	.banner .ad .thumbnail{
+		border: none;
+		padding: 0;
+		transition: all 0.3s ease-in;
+	}
+	.banner .ad .thumbnail:hover{
+		box-shadow: 2px 4px 3px rgba(0,0,0,0.25);
+		transform:translateY(2px) ;
+	}
+	.banner .ad .thumbnail img{
+		width: 100%;
+		height: 200px;
+	}
+	.main-panel .panel-heading{
+		background-color: transparent;
+		border: none;
+		padding-left: 0;
+	}
+	.main-panel .panel-title{
+		padding-left: 15px;
+		border-left: 2px solid #ff6700;
+	}
+	.main-panel .panel-body{
+		background-color: #f7f7f7;
+		font-size: 16px;
+	}
+	.main-panel .panel-footer{
+		background: transparent;
+		border: none;
+	}
+	#article-wrap{
+		min-height: 500px;
+	}
+	/*
+	.user-panel{
+		background: #fefefe;
+		padding-top: 10px;
+		padding-bottom: 5px;
+		margin-bottom: 10px;
+		border-radius: 8px;
+	}
+	.user-panel .btn-register{
+		width: 100%;
+	}
+	*/
+/*用户注册登录*/
+	.user-panel{
+		background: #fff;
+		padding-top:20px;
+		padding-bottom: 5px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+	}
+	.user-panel .btn{
+		width:100%;
+	}
+	.user-panel .link{
+		margin-top: 10px;
+		display: block;
+		text-align: right;
+	}
+	#user-info{
+		padding-left: 20px;
+		box-sizing: border-box;
+	}
+	#user-info .link{
+		text-align: left;
+	}
+	.user-panel .err{
+		height: 30px;
+		line-height: 30px;
+		padding-left: 10px;
+	}
+/*用户注册登录*/
+	.panel-footer .text-muted{
+		margin-right: 15px;
+	}
+	.main-panel:hover .panel-title{
+		color: #ff6700;
+	}
+	.aside-panel .panel-heading	{
+		background: transparent;
+		border: none;
+	}
+	.aside-panel .panel-body .img-me{
+		width: 100px;
+		height: 100px;
+	}
+	.aside-panel .hot-body{
+		padding: 0 15px;
+	}
+	.hot-list .list-group-item{
+		border: none;
+		padding: 6px 0px 0px;
+	}
+	.hot-list .list-group-item a{
+		color: #333;
+		text-decoration: none;
+	}
+/*页脚*/
+	.page-footer .pagination>li>a:hover{
+		color: #ff6700;
+	}
+	.footer{
+		text-align:center;
+	}
+	
