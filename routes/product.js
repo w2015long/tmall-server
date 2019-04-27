@@ -27,7 +27,6 @@ const router = Router();
 //获取商品列表
 router.get('/home/list',(req,res)=>{
 	let page = req.query.page;
-	
 	let query = {status:0};
 	if(req.query.categoryId){
 		query.category = req.query.categoryId;
@@ -202,6 +201,7 @@ router.put("/updateOrder",(req,res)=>{
 			.then((result)=>{
 				res.json({
 					code:0,
+					message:'更新排序成功',
 					data:{
 						current:result.current,
 						total:result.total,
@@ -219,24 +219,19 @@ router.put("/updateOrder",(req,res)=>{
 	})
 })
 
-//更新排序
+//更新状态
 router.put("/updateStatus",(req,res)=>{
 	let body = req.body;
 	ProductModel
 	.update({_id:body.id},{status:body.status})
 	.then((product)=>{
 		if(product){
-			res.json({
-				code:0,
-				message:'更新状态成功'
-			})					
-		}else{
 			ProductModel
 			.getPaginationProducts(body.page,{})
 			.then((result)=>{
 				res.json({
-					code:1,
-					message:'更新状态失败',
+					code:0,
+					message:'更新状态成功',
 					data:{
 						current:result.current,
 						total:result.total,
@@ -244,6 +239,11 @@ router.put("/updateStatus",(req,res)=>{
 						list:result.list					
 					}
 				})	
+			})								
+		}else{
+			res.json({
+				code:1,
+				message:'更新状态失败'
 			})							
 		}
 	})
@@ -274,7 +274,7 @@ router.get("/search",(req,res)=>{
 	let keyword = req.query.keyword;
 	ProductModel
 	.getPaginationProducts(page,{
-		name:{$regex:new RegExp(keyword,'i')}
+		name:{$regex:new RegExp(`(.*)(${keyword.split('').join(')(.*)(')})(.*)`, 'i')}
 	})
 	.then((result)=>{
 		res.json({

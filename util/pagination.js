@@ -33,7 +33,7 @@ let pagination = (options)=>{
 		}
 
 		//每页显示条数
-		let limit = 10;
+		let limit = 3;
 
 		/*
 		分页:
